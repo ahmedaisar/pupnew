@@ -1,14 +1,16 @@
-import StealthPlugin from "puppeteer-extra-plugin-stealth";
-import puppeteer from "puppeteer-extra";
-puppeteer.use(StealthPlugin());
+import chrome from "chrome-aws-lambda";
 
 export default async function handler(req, res) {
   let query = req.query;
   const { hotelid, checkin, checkout, rooms } = query;
-  const browser = await puppeteer.launch({
-    headless: true,
-    ignoreDefaultArgs: ["--disable-extensions"],
-  });
+
+  const options = {
+    args: chrome.args,
+    executablePath: await chrome.executablePath,
+    headless: chrome.headless,
+  };
+
+  const browser = await puppeteer.launch(options);
 
   const page = await browser.newPage();
 
