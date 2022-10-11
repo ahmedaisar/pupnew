@@ -1,5 +1,3 @@
-import puppeteer from "puppeteer";
-
 export default async function handler(req, res) {
   let query = req.query;
   const { hotelid, checkin, checkout, rooms } = query;
@@ -11,7 +9,7 @@ export default async function handler(req, res) {
     headless: chrome.headless,
   };
 
-  const browser = await puppeteer.launch(options);
+  const browser = await chrome.puppeteer.launch(options);
 
   const page = await browser.newPage();
 
