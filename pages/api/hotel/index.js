@@ -1,4 +1,5 @@
 import chrome from "chrome-aws-lambda";
+import puppeteer from "puppeteer";
 
 export default async function handler(req, res) {
   let query = req.query;
