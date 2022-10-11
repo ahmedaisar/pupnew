@@ -1,7 +1,9 @@
+import chrome from "chrome-aws-lambda";
+
 export default async function handler(req, res) {
   let query = req.query;
   const { hotelid, checkin, checkout, rooms } = query;
-  const chrome = require("chrome-aws-lambda");
+  // const chrome = require("chrome-aws-lambda");
 
   const options = {
     args: chrome.args,
