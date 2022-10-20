@@ -3,21 +3,19 @@ const chrome = require("chrome-aws-lambda");
 export default async function handler(req, res) {
   //   let query = req.query;
   //   const { hotelid, checkin, checkout, rooms } = query;
-  const args = [
-    "--disable-gpu",
-    "--disable-dev-shm-usage",
-    "--disable-setuid-sandbox",
-    "--no-first-run",
-    "--no-sandbox",
-    "--no-zygote",
-    "--deterministic-fetch",
-    "--disable-features=IsolateOrigins",
-    "--disable-site-isolation-trials",
-  ];
+  //   const args = [
+  //     "--no-sandbox",
+  //     "--disable-setuid-sandbox",
+  //     "--disable-infobars",
+  //     "--window-position=0,0",
+  //     "--ignore-certifcate-errors",
+  //     "--ignore-certifcate-errors-spki-list",
+  //     '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"',
+  //   ];
   const options = {
-    args: args,
+    args: chrome.args,
     executablePath: await chrome.executablePath,
-    headless: true,
+    headless: chrome.headless,
   };
 
   try {
@@ -52,7 +50,7 @@ export default async function handler(req, res) {
     //   console.log(await res.json());
     // });
     let xhrCatcher = await page.waitForResponse((r) =>
-      awaitr.request().url().includes("/graphql")
+      r.request().url().includes("/graphql")
     );
 
     // and now we wait for the AJAX response!
