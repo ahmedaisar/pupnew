@@ -49,9 +49,8 @@ export default async function handler(req, res) {
     //   }
     //   console.log(await res.json());
     // });
-    let xhrCatcher = page.waitForResponse(
-      (r) =>
-        r.request().url().includes("/graphql") && r.request().method() == "POST"
+    let xhrCatcher = page.waitForResponse((r) =>
+      r.request().url().includes("/graphql")
     );
 
     // and now we wait for the AJAX response!
@@ -61,6 +60,7 @@ export default async function handler(req, res) {
     let xhrPayload = await xhrResponse.json();
     console.log("xhrPayload", xhrPayload);
     await browser.close();
+    res.status(200).json(xhrPayload);
   } catch (error) {
     console.log(error);
   }
