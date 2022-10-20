@@ -13,9 +13,9 @@ export default async function handler(req, res) {
   //     '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"',
   //   ];
   const options = {
-    args: chrome.args,
+    args: await chrome.args,
     executablePath: await chrome.executablePath,
-    headless: chrome.headless,
+    headless: await chrome.headless,
   };
 
   try {
@@ -29,39 +29,38 @@ export default async function handler(req, res) {
         waitUntil: "networkidle2",
       }
     );
-
-    // await page.type('#input-auto-complete > input[type="text"]', "Maldives");
-    // await page.click(
-    //   '.SearchFormFlyout_formWrapper__CLXm > input[type="submit"]'
-    // );
-    // await page.waitForTimeout(5000);
-    // const [response] = await Promise.all([
-    //   page.waitForResponse((res) =>
-    //     res.url().includes("/graphql?infoSlideoutQuery")
-    //   ),
-    // ]);
-    // const jsondata = await response.json();
-    // let jsn;
-
-    // await page.on("response", async (res) => {
-    //   if (res) {
-    //     page.waitForResponse((res) => res.url().includes("/graphql"));
-    //   }
-    //   console.log(await res.json());
-    // });
+    // await page.waitForTimeout(3000);
     let xhrCatcher = await page.waitForResponse((r) =>
-      r.request().url().includes("/graphql")
+      r.request().url().includes("https://www.expedia.com/graphql")
     );
 
-    // and now we wait for the AJAX response!
     let xhrResponse = await xhrCatcher;
 
-    // now get the JSON payload
     let xhrPayload = await xhrResponse.json();
     console.log("xhrPayload", xhrPayload);
+
     await browser.close();
     res.status(200).json(xhrPayload);
   } catch (error) {
     console.log(error);
   }
+  // await page.type('#input-auto-complete > input[type="text"]', "Maldives");
+  // await page.click(
+  //   '.SearchFormFlyout_formWrapper__CLXm > input[type="submit"]'
+  // );
+  // await page.waitForTimeout(5000);
+  // const [response] = await Promise.all([
+  //   page.waitForResponse((res) =>
+  //     res.url().includes("/graphql?infoSlideoutQuery")
+  //   ),
+  // ]);
+  // const jsondata = await response.json();
+  // let jsn;
+
+  // await page.on("response", async (res) => {
+  //   if (res) {
+  //     page.waitForResponse((res) => res.url().includes("/graphql"));
+  //   }
+  //   console.log(await res.json());
+  // });
 }
