@@ -43,12 +43,24 @@ export default async function handler(req, res) {
     // const jsondata = await response.json();
     // let jsn;
 
-    await page.on("response", async (res) => {
-      if (res) {
-        page.waitForResponse((res) => res.url().includes("/graphql"));
-      }
-      console.log(await res.json());
-    });
+    // await page.on("response", async (res) => {
+    //   if (res) {
+    //     page.waitForResponse((res) => res.url().includes("/graphql"));
+    //   }
+    //   console.log(await res.json());
+    // });
+    let xhrCatcher = page.waitForResponse(
+      (r) =>
+        r.request().url().includes("/graphql") && r.request().method() == "POST"
+    );
+
+    // and now we wait for the AJAX response!
+    let xhrResponse = await xhrCatcher;
+
+    // now get the JSON payload
+    let xhrPayload = await xhrResponse.json();
+    console.log("xhrPayload", xhrPayload);
+    await browser.close();
   } catch (error) {
     console.log(error);
   }
