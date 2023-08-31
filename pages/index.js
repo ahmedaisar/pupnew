@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { server } from '../config';
-import Link from "next/link";
+// import { useState } from "react";
+// import { server } from '../config';
+// import Link from "next/link";
 
 
 function HomePage() {
