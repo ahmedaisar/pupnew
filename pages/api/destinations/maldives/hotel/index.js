@@ -6,9 +6,9 @@ export default async function handler(req, res) {
   const { hotelid, checkin, checkout, rooms } = query;
 
   const options = {
-    args: puppeteer.args,
-    executablePath: puppeteer.executablePath,
-    headless: puppeteer.headless,
+    args: await puppeteer.args,
+    executablePath: await puppeteer.executablePath,
+    headless: await puppeteer.headless,
   };
 
   try {
