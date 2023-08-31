@@ -154,12 +154,11 @@
   resolved "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz"
   integrity sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==
 
-"@sparticuz/chromium-min@110.0.1":
-  version "110.0.1"
-  resolved "https://registry.yarnpkg.com/@sparticuz/chromium-min/-/chromium-min-110.0.1.tgz#581246421dd06e3906949dd8674d4f3bd4a148a7"
-  integrity sha512-CB8rJMah7XEXP9/88HE4nyt/FfRtup/DxM955DxUr/CeaCnlrOWnz64/JeUsXM2ZP6yf4Y/icAixX+U5YaR1tA==
+"@sparticuz/chromium@110.0.0":
+  version "110.0.0"
+  resolved "https://registry.yarnpkg.com/@sparticuz/chromium/-/chromium-110.0.0.tgz#967375a3a242bd989ca5bf95f9cc8cd4269d637a"
+  integrity sha512-b4lVUnG+waiMzm/O5wO1RCnr/DV9Xn1Om4NujHsM0oy12KdQ7gfB/JyRDCYhlASrpyLYMA6F01t8/r+rLqIjkg==
   dependencies:
-    follow-redirects "^1.15.2"
     tar-fs "^2.1.1"
 
 "@swc/helpers@0.4.11":
@@ -976,7 +975,7 @@ flatted@^3.1.0:
   resolved "https://registry.npmjs.org/flatted/-/flatted-3.2.7.tgz"
   integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
 
-follow-redirects@^1.15.0, follow-redirects@^1.15.2:
+follow-redirects@^1.15.0:
   version "1.15.2"
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.2.tgz"
   integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
