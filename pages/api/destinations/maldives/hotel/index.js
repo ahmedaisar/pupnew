@@ -35,7 +35,7 @@ export default async function handler(req, res) {
     let html = await page.evaluate(() => {
     let body = document.querySelector("body").innerText;
     let pre = document.querySelector("pre").innerHTML;
-      return JSON.parse(body);
+      return JSON.parse(pre);
     });
     await browser.close();
     res.status(200).json(html);
