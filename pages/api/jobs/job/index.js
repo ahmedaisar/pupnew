@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer");
 const cheerio = require('cheerio');
 
 export default async function handler(req, res) {
-  let id = Number(req.query.id);
+  let link = req.query.link;
 
   const options = {
     //args: chrome.args,
@@ -11,11 +11,11 @@ export default async function handler(req, res) {
   };
 
   try {
-    const browser = await puppeteer.puppeteer.launch();
+    const browser = await puppeteer.launch();
 
     const page = await browser.newPage();
 
-    await page.goto('https://www.job-maldives.com/', {waitUntil: 'load', timeout: 0});
+    await page.goto(link, {waitUntil: 'load', timeout: 0});
     //await page.waitForTimeout(2000);
     //getting access to the raw HTML
     const pageData = await page.evaluate(() => {
@@ -23,7 +23,8 @@ export default async function handler(req, res) {
         html: document.documentElement.innerHTML,
         };
     });
-    let data = { jobPosts: [] }
+    console.log(pageData);
+    let data = [];
     // let title;
     // let date;
     // let link;
@@ -44,8 +45,8 @@ export default async function handler(req, res) {
 
 
     await browser.close();
-    res.status(200).json(data);
-    console.log(single);
+    res.status(200).json(pageData);
+    
   } catch (error) {
     console.log(error);
   }
