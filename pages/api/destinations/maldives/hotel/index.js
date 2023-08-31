@@ -5,14 +5,24 @@ export default async function handler(req, res) {
   let query = req.query;
   const { hotelid, checkin, checkout, rooms } = query;
 
-  const options = {
-    args: await puppeteer.args,
-    executablePath: await puppeteer.executablePath,
-    headless: await puppeteer.headless,
+  // const options = {
+  //   args: await puppeteer.args,
+  //   executablePath: await puppeteer.executablePath,
+  //   headless: await puppeteer.headless,
+  // };
+
+  const firefoxOptions = {
+    product: 'firefox',
+    extraPrefsFirefox: {
+      // Enable additional Firefox logging from its protocol implementation
+      // 'remote.log.level': 'Trace',
+    },
+    // Make browser logs visible
+    dumpio: true,
   };
 
   try {
-    const browser = await puppeteer.launch(options);
+    const browser = await puppeteer.launch(firefoxOptions);
 
     const page = await browser.newPage();
 
