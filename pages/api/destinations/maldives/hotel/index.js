@@ -1,28 +1,17 @@
-// const chrome = require("chrome-aws-lambda");
-const puppeteer = require("puppeteer");
+const chrome = require("chrome-aws-lambda");
 
 export default async function handler(req, res) {
   let query = req.query;
   const { hotelid, checkin, checkout, rooms } = query;
 
-  // const options = {
-  //   args: await puppeteer.args,
-  //   executablePath: await puppeteer.executablePath,
-  //   headless: await puppeteer.headless,
-  // };
-
-  const firefoxOptions = {
-    product: 'firefox',
-    extraPrefsFirefox: {
-      // Enable additional Firefox logging from its protocol implementation
-      // 'remote.log.level': 'Trace',
-    },
-    // Make browser logs visible
-    dumpio: true,
+  const options = {
+    args: chrome.args,
+    executablePath: await chrome.executablePath,
+    headless: chrome.headless,
   };
 
   try {
-    const browser = await puppeteer.launch(firefoxOptions);
+    const browser = await chrome.puppeteer.launch(options);
 
     const page = await browser.newPage();
 
@@ -32,9 +21,11 @@ export default async function handler(req, res) {
         waitUntil: "load",
       }
     );
-    //await page.waitForTimeout(2000);
+    //await page.waitForTimeout(500);
     let html = await page.evaluate(() => {
-      return JSON.parse(document.querySelector("body").innerText);
+      let body = document.querySelector("body").innerText;
+      let pre = document.querySelector("pre").innerHTML;
+      return JSON.parse(body);
     });
     await browser.close();
     res.status(200).json(html);
