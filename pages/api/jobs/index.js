@@ -33,12 +33,12 @@ export default async function handler(req, res) {
         title = $(element).find('div.recent-post-title a').text();
         link = $(element).find('div.recent-post-title a').attr('href');
         date = $(element).find('div.recent-posts-details').text();
-        // let newlink = link.replace('https://www.jobmaldives.com/2023/', '');
+        newlink = link.replace('https://www.jobmaldives.com/2023/', '');
 
         data.push({
             'title': title,
             'date': date,
-            'link': link.replace('https://www.jobmaldives.com/2023/', '')
+            'link': newlink
             })
       }); 
 
