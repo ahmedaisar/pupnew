@@ -1,6 +1,6 @@
 //const chrome = require("chrome-aws-lambda");
-const puppeteer = require("puppeteer");
-const chromium = require("@sparticuz/chromium");
+const puppeteer = require("puppeteer-core");
+const chromium = require("@sparticuz/chromium-min");
 
 export default async function handler(req, res) {
   let query = req.query;
@@ -15,8 +15,12 @@ export default async function handler(req, res) {
   try {
     const browser = await puppeteer.launch({
       args: chromium.args,
-      executablePath: await chromium.executablePath,
-      headless: true,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(
+        "https://github.com/Sparticuz/chromium/releases/download/v110.0.1/chromium-v110.0.1-pack.tar"
+      ),
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
     });
 
     const page = await browser.newPage();
@@ -29,8 +33,8 @@ export default async function handler(req, res) {
     );
     //await page.waitForTimeout(500);
     let html = await page.evaluate(() => {
-      let body = document.querySelector("body").innerText;
-      let pre = document.querySelector("pre").innerHTML;
+    let body = document.querySelector("body").innerText;
+    let pre = document.querySelector("pre").innerHTML;
       return JSON.parse(body);
     });
     await browser.close();
