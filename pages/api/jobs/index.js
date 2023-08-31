@@ -42,13 +42,13 @@ export default async function handler(req, res) {
             })
       }); 
 
-    fs.writeFile('./json/jobs.json',  JSON.stringify(data), function(err) {
+    fs.writeFile('./json/jobs.json', data, function(err) {
         if (err) {
             console.log(err);
         }
     });
-    await browser.close();
     res.status(200).json(data);
+    await browser.close();    
   } catch (error) {
     console.log(error);
   }
