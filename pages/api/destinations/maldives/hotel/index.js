@@ -5,14 +5,14 @@ export default async function handler(req, res) {
   let query = req.query;
   const { hotelid, checkin, checkout, rooms } = query;
 
-  // const options = {
-  //   args: puppeteer.args,
-  //   executablePath: puppeteer.executablePath,
-  //   headless: puppeteer.headless,
-  // };
+  const options = {
+    args: puppeteer.args,
+    executablePath: puppeteer.executablePath,
+    headless: puppeteer.headless,
+  };
 
   try {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch(options);
 
     const page = await browser.newPage();
 
