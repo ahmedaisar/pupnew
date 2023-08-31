@@ -1,17 +1,24 @@
-const chrome = require("chrome-aws-lambda");
+//const chrome = require("chrome-aws-lambda");
+const puppeteer = require("puppeteer");
+const chromium = require("@sparticuz/chromium");
 
 export default async function handler(req, res) {
   let query = req.query;
   const { hotelid, checkin, checkout, rooms } = query;
 
-  const options = {
-    args: chrome.args,
-    executablePath: await chrome.executablePath,
-    headless: chrome.headless,
-  };
+  // const options = {
+  //   args: chrome.args,
+  //   executablePath: await chrome.executablePath,
+  //   headless: chrome.headless,
+  // };
 
   try {
-    const browser = await chrome.puppeteer.launch(options);
+    const browser = await puppeteer.launch({
+      args: chromium.args,
+      executablePath:
+      process.env.CHROME_EXECUTABLE_PATH || (await chromium.executablePath),
+      headless: true,
+    });
 
     const page = await browser.newPage();
 
